@@ -8,15 +8,11 @@ import { Ionicons } from '@expo/vector-icons';
 import Logo from './components/Logo';
 import Menu from './components/Menu';
 
-
-
-// import {createBottomTabNavigatior} from 'react-native';
-
 export default class App extends React.Component {
   render() {
     return (
       <Container>
-      <Menu />
+        <Menu />
         <SafeAreaView>
           <ScrollView>
 

@@ -87,7 +87,7 @@ const CloseView = styled.View`
   background: white;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.15)
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 `;
 
 const Container = styled.View`
