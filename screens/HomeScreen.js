@@ -8,9 +8,11 @@ import { Ionicons } from '@expo/vector-icons';
 import Logo from '../components/Logo';
 import Menu from '../components/Menu';
 import { connect } from "react-redux";
+import Avatar from '../components/Avatar';
+
 
 function mapStateToProps(state) {
-  return { action: state.action }
+  return { action: state.action, name: state.name };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -21,7 +23,14 @@ function mapDispatchToProps(dispatch) {
   }
 }  
 
+
+
 class HomeScreen extends React.Component {
+
+  static navigationOptions = {
+    // title: "Home"
+    header: null
+  };
 
   state = {
     scale: new Animated.Value(1),
@@ -77,10 +86,10 @@ class HomeScreen extends React.Component {
 
             <TitleBar>
             <TouchableOpacity onPress={this.props.openMenu} style={{ position: "absolute", top: 0, left: 0 }}>
-              <Avatar source={require('../assets/avatar.jpg')}></Avatar>
+              <Avatar />
             </TouchableOpacity>
               <Title>Welcome back,</Title>
-              <Name>Adam Morgan</Name>
+              <Name>{this.props.name}</Name>
               <Ionicons
                 name="ios-notifications"
                 size={28}
@@ -103,8 +112,10 @@ class HomeScreen extends React.Component {
 
             <ScrollView horizontal={true} style={{ paddingBottom: 30}} showsHorizontalScrollIndicator={false}>
               {cards.map((card, index) => (
+                <TouchableOpacity key={index} onPress={() => {
+                  this.props.navigation.push("Section")
+                }}>
                 <Card
-                  key={index}
                   title={card.title}
                   image={card.image}
                   caption={card.caption}
@@ -112,6 +123,7 @@ class HomeScreen extends React.Component {
                   subtitle={card.subtitle}
                   avatar={card.avatar}
                 />
+                </TouchableOpacity>
               ))}
             </ScrollView>
 
@@ -146,6 +158,9 @@ class HomeScreen extends React.Component {
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
+
+// Styled Components
+
 const RootView = styled.View`
   background: black;
   flex: 1;
@@ -154,7 +169,8 @@ const RootView = styled.View`
 const Container = styled.View`
   flex: 1;
   background-color: #f0f3f5;
-  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   overflow:hidden;
 `;
 
@@ -180,12 +196,6 @@ const TitleBar = styled.View`
   padding-left:60px;
 `;
 
-const Avatar = styled.Image`
-  width:44px;
-  height:44px;
-  border-radius:22px;
-  margin-left:20px;
-`;
 
 const SubTitle = styled.Text`
   color:#b8bece;
@@ -196,6 +206,8 @@ const SubTitle = styled.Text`
   text-transform:uppercase;
 `;
 
+
+// Data
 
 
 const logos = [
